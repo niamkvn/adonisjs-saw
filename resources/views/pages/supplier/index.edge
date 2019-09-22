@@ -1,0 +1,456 @@
+@layout('layouts.main')
+@section('content')
+@set('title', "Supplier")
+    <div class="container-scroller">
+        <!-- partial:../../partials/_navbar.html -->
+        @include('partials._navbar')
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:../../partials/_sidebar.html -->
+            @include('partials._sidebar')
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Data Supplier</h4>
+                                    <div class="table-responsive">
+                                        <table id="datatable" class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        No.
+                                                    </th>
+                                                    <th>
+                                                        Kode Supplier
+                                                    </th>
+                                                    <th>
+                                                        Nama Supplier
+                                                    </th>
+                                                    <th>
+                                                        Alamat Supplier
+                                                    </th>
+                                                    <th>
+                                                        Telepon Supplier
+                                                    </th>
+                                                    <th>
+                                                        Fax Supplier
+                                                    </th>
+                                                    <th class="text-center">
+                                                        Aksi
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @each(supplier in suppliers.data)
+                                                    <tr>
+                                                        <td class="py-1">
+                                                            {{ ($loop.index + 1) }}
+                                                        </td>
+                                                        <td>
+                                                            {{supplier.kode}}
+                                                        </td>
+                                                        <td>
+                                                            {{supplier.nama}}
+                                                        </td>
+                                                        <td>
+                                                            {{supplier.alamat}}
+                                                        </td>
+                                                        <td>
+                                                            {{supplier.telepon}}
+                                                        </td>
+                                                        <td>
+                                                            {{supplier.fax}}
+                                                        </td>
+                                                        <td>
+                                                            <div class="row mr-auto">
+                                                                <div class="col-md-6 mb-md-0 mb-1">
+                                                                    <button onclick="openModal('PUT', {{supplier.id}}) "type="button" class="mr-md-1 btn btn-dark btn-sm btn-icon-text">
+                                                                        <i class="ti-pencil-alt btn-icon"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <button onclick="openModal('DELETE', {{supplier.id}}, '{{supplier.nama}}')" type="button" class="btn btn-danger btn-sm btn-icon-text">
+                                                                        <i class="ti-trash btn-icon"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @else
+                                                    <p>Belum ada supplier</p>
+                                                @endeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- content-wrapper ends -->
+                <!-- partial:../../partials/_footer.html -->
+                @include('partials._footer')
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+
+    <!-- Modals -->
+    <!-- supplier.store -->
+    <div id="tambahSupplier" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Supplier</h5>
+                    <button type="button" class="tombol-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 grid-margin">
+                            <div class="messages"></div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Horizontal Two column</h4>
+                                    <form class="form-sample">
+                                    <p class="card-description">
+                                        Personal info
+                                    </p>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="kode" class="col-sm-3 col-form-label">Kode Supplier</label>
+                                                <div class="col-sm-9">
+                                                    <input autofocus name="kode" id="kode" type="text" class="form-control" placeholder="Kode disini..."/>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="nama" class="col-sm-3 col-form-label">Nama Supplier</label>
+                                                    <div class="col-sm-9">
+                                                        <input name="nama" id="nama" type="text" class="form-control" placeholder="Nama disini..."/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="alamat" class="col-sm-3 col-form-label">Alamat Supplier</label>
+                                                    <div class="col-sm-9">
+                                                        <input name="alamat" id="alamat" type="text" class="form-control" placeholder="Alamat disini..."/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="telepon" class="col-sm-3 col-form-label">Telepon Supplier</label>
+                                                    <div class="col-sm-9">
+                                                        <input name="telepon" id="telepon" type="number" class="form-control" placeholder="Nomor telepon disini..."/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="fax" class="col-sm-3 col-form-label">Fax Supplier</label>
+                                                    <div class="col-sm-9">
+                                                        <input name="fax" id="fax" type="text" class="form-control" placeholder="Fax disini..."/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="tambahSupplier()" type="button" class="btn btn-success">Tambahkan</button>
+                    <button type="button" class="tombol-close btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End supplier.store -->
+    <!-- supplier.update -->
+    <div id="updateSupplier" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Supplier</h5>
+                    <button type="button" class="tombol-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12 grid-margin">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form class="form-sample">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label for="kodeBaru" class="col-sm-3 col-form-label">Kode Baru Supplier</label>
+                                                <div class="col-sm-9">
+                                                    <input autofocus name="kodeBaru" id="kodeBaru" type="text" class="form-control" placeholder="Kode baru disini..."/>
+                                                </div>
+                                            </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="namaBaru" class="col-sm-3 col-form-label">Nama Baru Supplier</label>
+                                                    <div class="col-sm-9">
+                                                        <input name="namaBaru" id="namaBaru" type="text" class="form-control" placeholder="Nama baru disini..."/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="alamatBaru" class="col-sm-3 col-form-label">Alamat Baru Supplier</label>
+                                                    <div class="col-sm-9">
+                                                        <input name="alamatBaru" id="alamatBaru" type="text" class="form-control" placeholder="Alamat baru disini..."/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="teleponBaru" class="col-sm-3 col-form-label">Telepon Baru Supplier</label>
+                                                    <div class="col-sm-9">
+                                                        <input name="teleponBaru" id="teleponBaru" type="number" class="form-control" placeholder="Nomor baru telepon disini..."/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label for="faxBaru" class="col-sm-3 col-form-label">Fax Baru Supplier</label>
+                                                    <div class="col-sm-9">
+                                                        <input name="faxBaru" id="faxBaru" type="text" class="form-control" placeholder="Fax baru disini..."/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    </form>
+                                    <div class="messages"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="tombolUpdate" type="button" class="btn btn-success">Simpan</button>
+                    <button type="button" class="tombol-close btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End supplier.update -->
+    <!-- supplier.destroy -->
+    <div id="hapusSupplier" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Hapus Supplier</h5>
+                    <button type="button" class="tombol-close close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="tombolHapus" type="button" class="btn btn-danger">Hapus</button>
+                    <button type="button" class="tombol-close btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End supplier.destroy -->
+    <!-- End Modals-->
+@endsection
+
+@section('customJs')
+    <script>
+        // ========== Plugins ==========
+        // TODO: Next CRUD barang with select2 plugin
+        $(document).ready(function() {
+            let dom = "<'row overflow-auto text-right mb-2'<'col-sm-12'B>>" +
+                        "<'row'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>"
+             $('#datatable').DataTable( {
+            // dom: 'Bfrltip',
+            dom: dom,
+                buttons: [
+                    {
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis',
+                    {
+                        text: '<i class="ti-plus btn-icon-prepend"></i> Tambah',
+                        className: "btn btn-success btn-md",
+                        action: function ( e, dt, node, config ) {
+                            $('#tambahSupplier').modal('show')
+                        }
+                    }
+                ]
+            } );
+        } );
+        // ========== End Plugins ==========
+        // ========== Utilitas ==========
+        // Auto Focus Inputs
+        $('.modal').on('shown.bs.modal', function() {
+            $(this).find('[autofocus]').focus();
+        });
+        
+        // Reset Inputs and Messages
+        $(".tombol-close").on('click', ()=>{
+            $(".modal-body .messages").html("")
+            $("input").val("")
+        })
+        // ========== End Utilitas ==========
+        
+        // ========== CRUD ===========
+        function openModal(method, id, nama){
+            switch(method){
+                case "PUT":
+                    $.ajax({
+                        url: "http://localhost:3333/api/supplier/"+ id,
+                        type: "GET",
+                    }).done((response) => {
+                        $('#updateSupplier input[name="kodeBaru"]').val(response.kode)
+                        $('#updateSupplier input[name="namaBaru"]').val(response.nama)
+                        $('#updateSupplier input[name="alamatBaru"]').val(response.alamat)
+                        $('#updateSupplier input[name="teleponBaru"]').val(response.telepon)
+                        $('#updateSupplier input[name="faxBaru"]').val(response.fax)
+                        $("#tombolUpdate").attr("onclick", "updateSupplier(" + id + ")");
+                        $('#updateSupplier').modal('show')
+                    }).fail((jqXHR, textStatus) => {
+                        alert( "Maaf, terjadi kesalahan. Error: " + textStatus );
+                    });
+                    break;
+                case"DELETE":
+                    $('#hapusSupplier p').text("Apakah anda yakin akan menghapus supplier dengan nama " + nama + " ?")
+                    $("#tombolHapus").attr("onclick", "hapusSupplier("+ id + ", '" + nama + "')");
+                    $('#hapusSupplier').modal('show')
+                    break;
+                default: 
+                    break;
+            }
+        }
+
+        function tambahSupplier(){
+            $.ajax({
+                url: "http://localhost:3333/api/supplier",
+                type: "POST",
+                dataType: "json",
+                data: {
+                    kode: $("#kode").val(),
+                    nama: $("#nama").val(),
+                    alamat: $("#alamat").val(),
+                    telepon: $("#telepon").val(),
+                    fax: $("#fax").val()
+                }
+            }).done((response) => {
+                location.reload()
+            }).fail((jqXHR, textStatus) => {
+                if(jqXHR.status == 422){
+                    let {notification} = JSON.parse(jqXHR.responseText)
+                    let baris = '<div class="alert alert-' + notification.type + '" role="alert">'
+                    $.each(notification.messages, (i, v) => {
+                        baris = baris + '<i class="ti-alert btn-icon-prepend"></i> ' + notification.messages[i].message
+                    })
+                        baris = baris + '</div>'
+                    $(".modal-body .messages").html(baris)
+                }else{
+                    alert( "Maaf, terjadi kesalahan. Error: " + textStatus );
+                }
+            });
+        }
+
+        function updateSupplier(id){
+            $.ajax({
+                url: "http://localhost:3333/api/supplier/"+ id,
+                type: "PUT",
+                dataType: "json",
+                data: {
+                    kodeBaru: $("#kodeBaru").val(),
+                    namaBaru: $("#namaBaru").val(),
+                    alamatBaru: $("#alamatBaru").val(),
+                    teleponBaru: $("#teleponBaru").val(),
+                    faxBaru: $("#faxBaru").val()
+                }
+            }).done((response) => {
+                // much dank begalsepeda
+                location.reload()
+            }).fail((jqXHR, textStatus) => {
+                if(jqXHR.status == 422){
+                    let {notification} = JSON.parse(jqXHR.responseText)
+                    let baris = '<div class="alert alert-' + notification.type + '" role="alert">'
+                    $.each(notification.messages, (i, v) => {
+                        baris = baris + '<i class="ti-alert btn-icon-prepend"></i> ' + notification.messages[i].message
+                    })
+                        baris = baris + '</div>'
+                    $(".modal-body .messages").html(baris)
+                }else{
+                    alert( "Maaf, terjadi kesalahan. Error: " + textStatus );
+                }
+            });
+        }
+
+        function hapusSupplier(id, nama){
+            $.ajax({
+                url: "http://localhost:3333/api/supplier/"+ id,
+                type: "DELETE"
+            }).done((response) => {
+                location.reload()
+            }).fail((jqXHR, textStatus) => {
+                alert( "Maaf, terjadi kesalahan. Error: " + textStatus );
+            });
+        }
+        // ========== End CRUD ===========
+    </script>
+@endsection
